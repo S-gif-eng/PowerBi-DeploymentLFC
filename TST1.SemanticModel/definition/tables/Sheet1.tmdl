@@ -1,0 +1,39 @@
+table Sheet1
+	lineageTag: fd89af2e-1a37-417e-b0d4-ca7e1162d13a
+
+	measure Measure = count(Sheet1[case_count])
+		formatString: 0
+		lineageTag: dc6d6e30-220f-4de3-bac7-3ec39d9fb952
+
+	column created_date
+		dataType: int64
+		formatString: 0
+		lineageTag: 9dc0d0fe-9498-4319-8720-fa4e8f0a95c5
+		summarizeBy: sum
+		sourceColumn: created_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column case_count
+		dataType: double
+		lineageTag: 37bf1df9-512b-486e-9e6d-f3f17098a32a
+		summarizeBy: sum
+		sourceColumn: case_count
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Sheet1 = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\InthiyazShaik\Downloads\predictive_analysis.xlsx"), null, true),
+				    Sheet1_Sheet = Source{[Item="Sheet1",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"created_date", Int64.Type}, {"case_count", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

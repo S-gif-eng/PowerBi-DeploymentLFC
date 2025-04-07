@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.6.0/schema.json",
+  "name": "c2acd02e4b3e9055cd19",
+  "position": {
+    "x": 96.055210305030243,
+    "y": 197.59928977034792,
+    "z": 0,
+    "height": 321.0988458768154,
+    "width": 193.48263790013235,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Sheet1"
+                    }
+                  },
+                  "Property": "created_date"
+                }
+              },
+              "queryRef": "Sum(Sheet1.created_date)",
+              "nativeQueryRef": "created_date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Sheet1"
+                    }
+                  },
+                  "Property": "case_count"
+                }
+              },
+              "queryRef": "Sum(Sheet1.case_count)",
+              "nativeQueryRef": "case_count"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
